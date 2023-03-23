@@ -27,3 +27,28 @@ HTML 权重级别是在 CSS 控制样式时用于确定哪个规则优先应用�
 4. 通配符和继承（Specificity of the universal selector, combinators, and inherited）：这是最低优先级，包括通用选择器、组合器和继承样式，它们没有特定的权重。
 
 在规则具有相同优先级时，后定义的规则将被应用。在某些情况下，可以使用 !important 修饰符来提高 CSS 规则的权重，但应该避免使用它，因为它可以使代码难以调试和维护。
+
+### 2023.3.23 - 请在 JavaScript 中实现一个类?
+
+该类包含一个属性 count 和两个方法 increment 和 decrement。increment 方法会将 count 的值加 1，decrement 方法会将 count 的值减 1。
+
+```js
+class Counter {
+  constructor() {
+    this.count = 0
+  }
+  increment() {
+    this.count++
+  }
+  decrement() {
+    this.count--
+  }
+}
+
+const counter = new Counter()
+console.log(counter.count) // 0
+counter.increment()
+console.log(counter.count) // 1
+counter.decrement()
+console.log(counter.count) // 0
+```
