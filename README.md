@@ -52,3 +52,19 @@ console.log(counter.count) // 1
 counter.decrement()
 console.log(counter.count) // 0
 ```
+
+### 2023.3.25 - CSS 中 BFC 的概念?
+
+BFC 是指块级格式化上下文（Block Formatting Context），它是 Web 页面的可视化 CSS 渲染的一部分，这是根据 CSS 规范定义的一块渲染区域。在 BFC 中，块级盒子会按照一定规则排列，并且不会影响到 BFC 区域之外的元素布局。
+
+换句话说，BFC 是一种渲染模式，它决定了元素如何被摆放，如何堆叠，以及它们之间的相互影响关系。当一个元素生成 BFC 时，它会创建一块独立渲染区域，该区域与其它元素之间互不干扰。这意味着，BFC 区域内的元素不会影响到其它元素的布局，同时也不会受到其它元素的影响。
+
+常见生成 BFC 的情况包括：
+
+- 根元素
+- display 属性值为 inline-block、table-cell、table-caption，或者 inline-flex、inline-grid 的元素
+- overflow 属性值不为 visible 的块级盒子
+- float 属性值不为 none 的元素
+- position 属性值为 absolute 或 fixed 的元素
+
+BFC 可以用于解决很多布局问题，例如清除浮动影响，防止边距重叠等。
