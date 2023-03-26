@@ -69,7 +69,7 @@ BFC 是指块级格式化上下文（Block Formatting Context），它是 Web �
 
 BFC 可以用于解决很多布局问题，例如清除浮动影响，防止边距重叠等。
 
-### 你用过哪些 HTML5 新特性？
+### 2023.3.26 - 你用过哪些 HTML5 新特性？
 
 1. 新的语义标签，如 `<header>、<nav>、<article>、<section>、<footer> `等，使得网页结构更加清晰明了。
 2. 改进的表单控件，如 `<input>` 的 type 属性新增了很多值，如 email、url、date、time 等，使得表单更容易填写，同时增加了一些表单验证的功能。
