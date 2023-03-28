@@ -82,7 +82,26 @@ BFC 可以用于解决很多布局问题，例如清除浮动影响，防止边�
 
 ### instanceof 作用与原理
 
-### 重排& 重绘
+instanceof 是 JavaScript 中的一个运算符，用于检查一个对象是否是某个构造函数创建的实例。其语法如下：`object instanceof constructor`
+
+- 其中，object 是要检查的对象，constructor 是构造函数。如果 object 是 constructor 创建的实例或者是 constructor 的子类的实例，则返回 true；否则返回 false。
+- instanceof 运算符的实现原理是通过检查 object 原型链上的所有原型对象，看是否存在 constructor.prototype。如果存在，返回 true；否则返回 false。
+- 需要注意的是，object 和 constructor 必须都是对象（原始类型会被自动转换成对应的包装对象），否则会抛出 TypeError 错误。此外，对于内置对象如 Array、RegExp 等，由于它们都继承自 Object.prototype，所以 instanceof 运算符总是返回 true。
+
+```js
+// 下面是一个 instanceof 运算符的例子：
+class Animal {}
+
+class Dog extends Animal {}
+
+const dog = new Dog()
+console.log(dog instanceof Animal) // true
+console.log(dog instanceof Dog) // true
+console.log(dog instanceof Object) // true
+console.log('abc' instanceof String) // false,字符串字面量需要包装对象才能使用 instanceof。
+```
+
+### 重排 & 重绘
 
 ### position
 
