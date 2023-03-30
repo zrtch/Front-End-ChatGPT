@@ -2,6 +2,14 @@
 
 ### 如何模拟实现 call 方法
 
+1. 在要改变 this 指向的函数的原型上，添加一个自定义的 myCall 方法；
+
+2. 在 myCall 方法内部，将调用 myCall 方法的函数作为对象的一个属性（例如 fn ），并传入要绑定到该函数的 this 对象；
+
+3. 执行该函数，并通过 apply 方法传入参数数组；
+
+4. 返回该函数的执行结果，并删除添加的 fn 属性。
+
 ```js
 Function.prototype.myCall = function (context, ...args) {
   // 如果context为null或undefined，则使用window对象
@@ -25,6 +33,14 @@ sayHello.myCall(person)
 ```
 
 ### 如何模拟实现 apply 方法
+
+1. 在要改变 this 指向的函数的原型上，添加一个自定义的 myApply 方法；
+
+2. 在 myApply 方法内部，将调用 myApply 方法的函数作为对象的一个属性（例如 fn ），并传入要绑定到该函数的 this 对象；
+
+3. 执行该函数，并通过 apply 方法传入参数数组；
+
+4. 返回该函数的执行结果，并删除添加的 fn 属性。
 
 ```js
 Function.prototype.myApply = function (context, args = []) {
@@ -50,6 +66,12 @@ sayHello.myApply(personApply, args) // Good morning, Peter!
 ```
 
 ### 如何模拟实现 bind 方法
+
+1. 在要改变 this 指向的函数的原型上，添加一个自定义的 myBind 方法；
+
+2. 在 myBind 方法内部，保存调用 myBind 方法的函数（即原函数）的引用，以及绑定到该函数的 this 对象和参数列表；
+
+3. 返回一个新函数，并在新函数中调用保存的原函数，并将绑定到该函数的 this 对象和参数列表传递给原函数。
 
 ```js
 Function.prototype.myBind = function (context, ...args1) {
