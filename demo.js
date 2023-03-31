@@ -79,3 +79,23 @@ console.log(counter.count); // 1
 counter.decrement()
 console.log(counter.count); // 0
 
+// 实现一个防抖函数
+function debounce(func, delay) {
+  let timer = null
+  return function (...args) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args)
+      timer = null
+    }, delay)
+  }
+}
+
+// 示例
+function sayHello() {
+  console.log("Hello!")
+}
+const debouncedSayHello = debounce(sayHello, 1000)
+setInterval(debouncedSayHello, 500)
