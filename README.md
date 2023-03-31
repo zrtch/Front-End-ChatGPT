@@ -118,4 +118,34 @@ console.log(counter.count) // 0
 
 ### 实现一个防抖函数
 
+防抖函数可以用于防止某些事件过快地被触发，例如用户频繁点击按钮或输入框中频繁输入。
+
+1. 在需要防抖的函数最开始处定义一个定时器变量 timer，初始值为 null。
+2. 当需要执行该函数时，清除之前的定时器，并重新设置一个新的定时器。因为在间隔时间内再次触发了函数，那么就会清除之前的定时器，重新计时。
+3. 如果过了规定的时间间隔，定时器变量 timer 就不再是 null，此时就可以执行函数，执行后将定时器变量重新设为 null。
+
+```js
+function debounce(func, delay) {
+  let timer = null
+  return function (...args) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args)
+      timer = null
+    }, delay)
+  }
+}
+
+// 示例
+function sayHello() {
+  console.log('Hello!')
+}
+const debouncedSayHello = debounce(sayHello, 1000)
+setInterval(debouncedSayHello, 500)
+```
+
+在上面的示例中，sayHello 函数被包装到了 debounce 函数里，并返回一个新的函数 debouncedSayHello，这个新函数具备防抖能力，每隔 500ms 就会执行一次，但由于设置了 1s 的防抖延迟，因此函数只会每隔 1s 执行一次。
+
 ### 实现一个节流函数
