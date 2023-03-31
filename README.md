@@ -115,3 +115,7 @@ console.log(counter.count) // 1
 counter.decrement()
 console.log(counter.count) // 0
 ```
+
+### 实现一个防抖函数
+
+### 实现一个节流函数
