@@ -149,3 +149,25 @@ setInterval(debouncedSayHello, 500)
 在上面的示例中，sayHello 函数被包装到了 debounce 函数里，并返回一个新的函数 debouncedSayHello，这个新函数具备防抖能力，每隔 500ms 就会执行一次，但由于设置了 1s 的防抖延迟，因此函数只会每隔 1s 执行一次。
 
 ### 实现一个节流函数
+
+节流函数的核心思路就是通过定时器来限制高频事件的触发次数，从而达到性能优化的效果。
+
+```js
+function throttle(func, delay) {
+  let canRun = true
+  return function (...args) {
+    if (!canRun) {
+      return
+    }
+    canRun = false
+    setTimeout(() => {
+      func.apply(this, args)
+      canRun = true
+    }, delay)
+  }
+}
+```
+
+该函数接收两个参数：要执行的函数和时间间隔，以毫秒为单位。当调用该函数时，它会返回一个新函数，这个新函数只有在每隔 delay 时间执行一次。
+
+具体实现方式为：利用一个布尔型变量 canRun 来控制函数是否可以执行。当新函数被调用时，首先判断 canRun 的值，如果为 false，说明还没有到可以执行的时间，直接 return 掉；否则将 canRun 设为 false，并使用 setTimeout 延迟一段时间，在延迟结束后再次设置 canRun 为 true，并执行函数。
