@@ -99,3 +99,19 @@ function sayHello() {
 }
 const debouncedSayHello = debounce(sayHello, 1000)
 setInterval(debouncedSayHello, 500)
+
+// 实现一个节流函数
+// 利用一个布尔型变量 canRun 来控制函数是否可以执行。当新函数被调用时，首先判断 canRun 的值，如果为 false，说明还没有到可以执行的时间，直接 return 掉；否则将 canRun 设为 false，并使用 setTimeout 延迟一段时间，在延迟结束后再次设置 canRun 为 true，并执行函数。
+function throttle(func, delay) {
+  let canRun = true
+  return function (...args) {
+    if (!canRun) {
+      return
+    }
+    canRun = false
+    setTimeout(() => {
+      func.apply(this, args)
+      canRun = true
+    }, delay)
+  }
+}
