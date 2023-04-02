@@ -174,6 +174,40 @@ function throttle(func, delay) {
 
 ### 实现一个深拷贝函数
 
+该函数接收一个对象作为参数，返回这个对象的深拷贝副本。当参数不是对象或者为 null 时，直接返回该参数；否则新建一个对象或数组（根据参数的类型而定），并遍历原始对象中的所有可枚举属性，逐一将它们的值递归地拷贝到新对象中。
+
+需要注意的是，在拷贝属性值时，也需要递归地调用 deepClone 函数，保证子对象的递归拷贝。
+
+```js
+// 以下是一个基于递归实现的深拷贝函数:
+function deepClone(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+  let result
+  if (obj instanceof Array) {
+    result = []
+  } else {
+    result = {}
+  }
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      result[key] = deepClone(obj[key])
+    }
+  }
+  return result
+}
+
+// 以下是一个简单示例：
+const obj = {
+  a: 1,
+  b: [2, 3, { c: 'hello' }],
+  d: { e: 'world' },
+}
+const newObj = deepClone(obj)
+console.log(newObj) // 输出结果应该和原始对象相同，但两者不会互相影响。
+```
+
 ### 实现一个单例模式
 
 ### 实现一个函数柯里化
