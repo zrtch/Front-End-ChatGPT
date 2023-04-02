@@ -115,3 +115,31 @@ function throttle(func, delay) {
     }, delay)
   }
 }
+
+// 以下是一个基于递归实现的深拷贝函数:
+function deepClone(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+  let result
+  if (obj instanceof Array) {
+    result = []
+  } else {
+    result = {}
+  }
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      result[key] = deepClone(obj[key])
+    }
+  }
+  return result
+}
+
+// 以下是一个简单示例：
+const obj = {
+  a: 1,
+  b: [2, 3, { c: 'hello' }],
+  d: { e: 'world' },
+}
+const newObj = deepClone(obj)
+console.log(newObj) // 输出结果应该和原始对象相同，但两者不会互相影响。
