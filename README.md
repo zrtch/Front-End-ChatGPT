@@ -209,6 +209,36 @@ console.log(newObj) // 输出结果应该和原始对象相同，但两者不会
 ```
 
 ### 实现一个单例模式
+单例模式是一种常用的设计模式，它保证一个类只有一个实例，并且提供一个全局访问点。
+在 JavaScript 中实现单例模式可以使用闭包和立即执行函数表达式（IIFE）。具体实现如下：
+```js
+const Singleton = (function() {
+  let instance;
+
+  function createInstance() {
+    const obj = new Object('I am the Singleton!');
+    return obj;
+  }
+
+  return {
+    getInstance: function() {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    }
+  };
+})();
+
+const instance1 = Singleton.getInstance();
+const instance2 = Singleton.getInstance();
+console.log(instance1 === instance2); // 输出 true
+```
+上述代码中，Singleton 是一个立即执行函数表达式（IIFE），它返回一个包含 getInstance 方法的对象。该方法根据 instance 是否存在来判断是否需要创建 createInstance 函数所创建的实例。
+
+通过 Singleton.getInstance() 方法获取单例实例，多次调用该方法返回的都是同一个对象实例。
+
+注意：该示例不是线程安全的，如果需要使用单例模式处理并发问题需要进行额外的处理。
 
 ### 实现一个函数柯里化
 
