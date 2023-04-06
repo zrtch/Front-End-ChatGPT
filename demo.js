@@ -143,3 +143,33 @@ const obj = {
 }
 const newObj = deepClone(obj)
 console.log(newObj) // 输出结果应该和原始对象相同，但两者不会互相影响。
+
+// 实现一个单例模式的示例代码
+var Singleton = (function () {
+  var instance;
+
+  function createInstance() {
+    // Your initialization code goes here
+    return {
+      publicMethod: function () {
+        console.log("Public method");
+      },
+      publicProperty: "I am a public property"
+    };
+  }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    }
+  };
+})();
+
+// usage
+var instance1 = Singleton.getInstance();
+var instance2 = Singleton.getInstance();
+
+console.log(instance1 === instance2); // true
