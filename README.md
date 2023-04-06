@@ -210,6 +210,43 @@ console.log(newObj) // 输出结果应该和原始对象相同，但两者不会
 
 ### 实现一个单例模式
 
+```js
+var Singleton = (function () {
+  var instance
+
+  function createInstance() {
+    // Your initialization code goes here
+    return {
+      publicMethod: function () {
+        console.log('Public method')
+      },
+      publicProperty: 'I am a public property',
+    }
+  }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = createInstance()
+      }
+      return instance
+    },
+  }
+})()
+
+// usage
+var instance1 = Singleton.getInstance()
+var instance2 = Singleton.getInstance()
+
+console.log(instance1 === instance2) // true
+```
+
+在这个实现中，使用了立即执行函数创建 Singleton 对象。getInstance()方法返回一个 Singleton 实例并确保它是唯一的。
+
+我们将 instance 设置为私有变量，确保外部不能直接访问它。只有在第一次调用 getInstance()时，createInstance()函数才会被调用来初始化这个实例，并将其赋值给 instance。
+
+返回的实例对象有一些公共属性和方法，可以通过它来调用，如 instance1.publicMethod()。由于这是单例模式，所以 instance1 和 instance2 会指向同一实例，并且 Console.log(instance1 === instance2)将返回 true。
+
 ### 实现一个函数柯里化
 
 ### 模拟实现一个 Promise 类
