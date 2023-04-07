@@ -209,31 +209,34 @@ console.log(newObj) // 输出结果应该和原始对象相同，但两者不会
 ```
 
 ### 实现一个单例模式
+
 单例模式是一种常用的设计模式，它保证一个类只有一个实例，并且提供一个全局访问点。
 在 JavaScript 中实现单例模式可以使用闭包和立即执行函数表达式（IIFE）。具体实现如下：
+
 ```js
-const Singleton = (function() {
-  let instance;
+const Singleton = (function () {
+  let instance
 
   function createInstance() {
-    const obj = new Object('I am the Singleton!');
-    return obj;
+    const obj = new Object('I am the Singleton!')
+    return obj
   }
 
   return {
-    getInstance: function() {
+    getInstance: function () {
       if (!instance) {
-        instance = createInstance();
+        instance = createInstance()
       }
-      return instance;
-    }
-  };
-})();
+      return instance
+    },
+  }
+})()
 
-const instance1 = Singleton.getInstance();
-const instance2 = Singleton.getInstance();
-console.log(instance1 === instance2); // 输出 true
+const instance1 = Singleton.getInstance()
+const instance2 = Singleton.getInstance()
+console.log(instance1 === instance2) // 输出 true
 ```
+
 上述代码中，Singleton 是一个立即执行函数表达式（IIFE），它返回一个包含 getInstance 方法的对象。该方法根据 instance 是否存在来判断是否需要创建 createInstance 函数所创建的实例。
 通过 Singleton.getInstance() 方法获取单例实例，多次调用该方法返回的都是同一个对象实例。注意：该示例不是线程安全的，如果需要使用单例模式处理并发问题需要进行额外的处理。
 
@@ -275,6 +278,40 @@ console.log(instance1 === instance2) // true
 返回的实例对象有一些公共属性和方法，可以通过它来调用，如 instance1.publicMethod()。由于这是单例模式，所以 instance1 和 instance2 会指向同一实例，并且 Console.log(instance1 === instance2)将返回 true。
 
 ### 实现一个函数柯里化
+
+柯里化是一种函数式编程技术，它将接收多个参数的函数转换成一个接收单个参数并返回接受余下参数并返回结果的函数序列的过程。以下是一个简单的 JavaScript 实现：
+
+```js
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args)
+    } else {
+      return function (...args2) {
+        return curried.apply(this, args.concat(args2))
+      }
+    }
+  }
+}
+```
+
+这个函数接受一个函数作为参数，返回一个柯里化的函数。在柯里化函数被调用时，它会检查传递的参数数量是否大于等于原始函数需要的参数数量。如果是，它会立即调用原始函数并返回结果。否则，它将返回一个新函数，该函数将与之前传递的参数组合在一起，并等待余下的参数被传递进来。
+
+```js
+// 例如，我们可以使用这个函数来柯里化一个简单的加法函数：
+function add(x, y, z) {
+  return x + y + z
+}
+
+const curriedAdd = curry(add)
+
+console.log(curriedAdd(1)(2)(3)) // 输出 6
+console.log(curriedAdd(1, 2)(3)) // 输出 6
+console.log(curriedAdd(1)(2, 3)) // 输出 6
+console.log(curriedAdd(1, 2, 3)) // 输出 6
+```
+
+这个例子展示了我们如何使用柯里化函数 curry 来转换原始的 add 函数。无论我们传递参数的方式如何，curriedAdd 都能正确计算结果。
 
 ### 模拟实现一个 Promise 类
 
