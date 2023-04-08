@@ -199,3 +199,16 @@ console.log(curriedAdd(1, 2)(3)); // 输出 6
 console.log(curriedAdd(1)(2, 3)); // 输出 6
 console.log(curriedAdd(1, 2, 3)); // 输出 6
 
+// 手写闭包:在这个例子中，innerFunction() 访问了其外层函数 outerFunction() 中的变量 outerVariable。尽管 outerFunction() 已经执行完毕，innerFunction() 依然能够访问和操作 outerVariable 变量，这就是闭包的实现。
+function outerFunction() {
+  const outerVariable = 'i am form outer function'
+
+  function innerFunction() {
+    console.log(outerVariable);
+  }
+
+  return innerFunction
+}
+
+const closure = outerFunction() // 通过外部函数调用获得内部函数
+closure()  // 输出 "I am from outer function"
