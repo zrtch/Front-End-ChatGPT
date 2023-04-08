@@ -313,6 +313,29 @@ console.log(curriedAdd(1, 2, 3)) // 输出 6
 
 这个例子展示了我们如何使用柯里化函数 curry 来转换原始的 add 函数。无论我们传递参数的方式如何，curriedAdd 都能正确计算结果。
 
+### 手写闭包
+
+闭包是指一个函数能够访问并操作其词法作用域中的变量，即使在这些变量超出了函数执行环境时依然有效。在 JavaScript 中，闭包常常用于模块化编程和实现私有变量等场景。
+
+```js
+function outerFunction() {
+  const outerVariable = 'I am from outer function'
+
+  function innerFunction() {
+    console.log(outerVariable)
+  }
+
+  return innerFunction
+}
+
+const closure = outerFunction() // 通过外部函数调用获得内部函数
+closure() // 输出 "I am from outer function"
+```
+
+在这个例子中，innerFunction() 访问了其外层函数 outerFunction() 中的变量 outerVariable。尽管 outerFunction() 已经执行完毕，innerFunction() 依然能够访问和操作 outerVariable 变量，这就是闭包的实现。
+
+通过在函数内部定义函数并返回它，我们可以创建一个闭包。在返回的函数内部，可以使用外部函数中定义的变量，即使外部函数已经执行完毕，这些变量依然能够保持其值。在上面的示例中，outerVariable 的值在 innerFunction() 中被访问并输出。
+
 ### 模拟实现一个 Promise 类
 
 ### 实现一个简易版的事件订阅发布系统（即发布-订阅模式
