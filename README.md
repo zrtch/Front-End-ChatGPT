@@ -338,4 +338,50 @@ closure() // 输出 "I am from outer function"
 
 ### 模拟实现一个 Promise 类
 
+请注意，这个实现是非常简单的，它只实现了 Promise 的基本功能，并没有处理异步操作，也没有支持链式调用。这个实现只是为了演示 Promise 的基本概念。实际上，现代的 Promise 实现会更加复杂，因为它们需要处理更多的场景和错误情况。
+
+```js
+class MyPromise {
+  constructor(executor) {
+    this.state = 'pending'
+    this.value = undefined
+    this.reason = undefined
+
+    const resolve = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'fulfilled'
+        this.value = value
+      }
+    }
+
+    const reject = (reason) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected'
+        this.reason = reason
+      }
+    }
+
+    try {
+      executor(resolve, reject)
+    } catch (err) {
+      reject(err)
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    if (this.state === 'fulfilled') {
+      onFulfilled(this.value)
+    } else if (this.state === 'rejected') {
+      onRejected(this.reason)
+    }
+  }
+
+  catch(onRejected) {
+    if (this.state === 'rejected') {
+      onRejected(this.reason)
+    }
+  }
+}
+```
+
 ### 实现一个简易版的事件订阅发布系统（即发布-订阅模式
