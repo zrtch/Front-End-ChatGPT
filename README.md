@@ -385,3 +385,67 @@ class MyPromise {
 ```
 
 ### 实现一个简易版的事件订阅发布系统（即发布-订阅模式
+
+实现一个简易版的事件订阅发布系统（即发布-订阅模式）可以通过以下步骤实现：
+
+1. 创建一个全局的事件中心，用来注册、触发和取消事件。
+2. 提供一个订阅方法 subscribe 用于订阅事件，该方法接受两个参数：事件名称和回调函数，用于在事件触发时执行。
+3. 提供一个取消订阅方法 unsubscribe，用于取消以前订阅的事件。
+4. 提供一个发布方法 publish，用于触发事件并通知所有已经订阅该事件的回调函数执行。
+
+```js
+var eventCenter = (function () {
+  var events = {}
+
+  function subscribe(eventName, callback) {
+    if (!events[eventName]) {
+      events[eventName] = []
+    }
+    events[eventName].push(callback)
+  }
+
+  function unsubscribe(eventName, callback) {
+    if (!events[eventName]) {
+      return
+    }
+
+    var index = events[eventName].indexOf(callback)
+    if (index > -1) {
+      events[eventName].splice(index, 1)
+    }
+  }
+
+  function publish(eventName, data) {
+    if (!events[eventName]) {
+      return
+    }
+
+    events[eventName].forEach(function (callback) {
+      callback(data)
+    })
+  }
+
+  return {
+    subscribe: subscribe,
+    unsubscribe: unsubscribe,
+    publish: publish,
+  }
+})()
+
+// Usage example:
+eventCenter.subscribe('someEvent', function (data) {
+  console.log('Received someEvent with data:', data)
+})
+
+eventCenter.publish('someEvent', 'Hello, world!')
+
+eventCenter.unsubscribe('someEvent', callback)
+```
+
+在这个实现中，我们创建了一个 eventCenter 对象作为事件中心，包含三个方法：subscribe 用于订阅事件，unsubscribe 用于取消订阅事件，以及 publish 用于发布事件和调用所有已订阅事件的回调函数。
+
+当事件触发时，调用 publish 方法并传递事件名称和相应的数据。之后，它将检查事件是否存在，如果存在，则遍历所有已订阅该事件的回调函数，并将数据作为参数传递给它们执行。
+
+我们还提供了 unsubscribe 方法来取消订阅以前订阅的事件。在该方法中，我们检查事件是否存在，如果存在，则找到回调函数的索引并删除它。
+
+使用示例中我们订阅了'someEvent'事件，当调用 eventCenter.publish('someEvent', 'Hello, world!')方法时，它将调用我们之前注册的回调函数并输出'Received someEvent with data: Hello, world!'。同时，当调用 eventCenter.unsubscribe('someEvent', callback)方法时，将取消之前已经订阅的事件。
