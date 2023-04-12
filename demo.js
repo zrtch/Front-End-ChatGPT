@@ -255,3 +255,51 @@ class MyPromise {
     }
   }
 }
+
+//  实现一个简易版的事件订阅发布系统（即发布-订阅模式
+var eventCenter = (function () {
+  var events = {}
+
+  function subscribe(eventName, callback) {
+    if (!events[eventName]) {
+      events[eventName] = []
+    }
+    events[eventName].push(callback)
+  }
+
+  function unsubscribe(eventName, callback) {
+    if (!events[eventName]) {
+      return
+    }
+
+    var index = events[eventName].indexOf(callback)
+    if (index > -1) {
+      events[eventName].splice(index, 1)
+    }
+  }
+
+  function publish(eventName, data) {
+    if (!events[eventName]) {
+      return
+    }
+
+    events[eventName].forEach(function (callback) {
+      callback(data)
+    })
+  }
+
+  return {
+    subscribe: subscribe,
+    unsubscribe: unsubscribe,
+    publish: publish,
+  }
+})()
+
+// Usage example:
+eventCenter.subscribe('someEvent', function (data) {
+  console.log('Received someEvent with data:', data)
+})
+
+eventCenter.publish('someEvent', 'Hello, world!')
+
+eventCenter.unsubscribe('someEvent', callback)
