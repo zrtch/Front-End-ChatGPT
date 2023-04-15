@@ -449,3 +449,46 @@ eventCenter.unsubscribe('someEvent', callback)
 我们还提供了 unsubscribe 方法来取消订阅以前订阅的事件。在该方法中，我们检查事件是否存在，如果存在，则找到回调函数的索引并删除它。
 
 使用示例中我们订阅了'someEvent'事件，当调用 eventCenter.publish('someEvent', 'Hello, world!')方法时，它将调用我们之前注册的回调函数并输出'Received someEvent with data: Hello, world!'。同时，当调用 eventCenter.unsubscribe('someEvent', callback)方法时，将取消之前已经订阅的事件。
+
+### websocket 如何实现心跳机制
+
+要实现 WebSocket 的心跳机制，需要在客户端和服务器端分别设置定时器，在指定时间间隔内发送对应的心跳信息。具体代码如下：
+
+客户端代码：
+
+```js
+const ws = new WebSocket('ws://localhost:8080') // 创建WebSocket连接
+
+// 设置定时器，每隔5秒钟向服务端发送一次心跳包
+setInterval(function () {
+  ws.send('ping')
+}, 5000)
+
+// 监听WebSocket接收到服务端返回的消息
+ws.onmessage = function (event) {
+  // 判断是否是服务端返回的回执信息
+  if (event.data === 'pong') {
+    console.log('Connection is still alive.')
+  }
+}
+```
+
+服务器端代码：
+
+```js
+const WebSocket = require('ws')
+
+const wss = new WebSocket.Server({ port: 8080 })
+
+wss.on('connection', function connection(ws) {
+  // 监听WebSocket接收到客户端发送的消息
+  ws.on('message', function incoming(message) {
+    // 判断是否是客户端发送的心跳包
+    if (message === 'ping') {
+      ws.send('pong') // 如果是心跳包，则立即返回一个回执信息
+    } else {
+      console.log(`Received message: ${message}`)
+    }
+  })
+})
+```
