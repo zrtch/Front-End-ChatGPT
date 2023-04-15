@@ -457,14 +457,15 @@ eventCenter.unsubscribe('someEvent', callback)
 客户端代码：
 
 ```js
-const ws = new WebSocket('ws://localhost:8080') // 创建WebSocket连接
+// 1.在客户端使用WebSocket对象创建WebSocket连接。
+const ws = new WebSocket('ws://localhost:8080')
 
-// 设置定时器，每隔5秒钟向服务端发送一次心跳包
+// 2.设置定时器，每隔5秒钟向服务端发送一次心跳包
 setInterval(function () {
   ws.send('ping')
 }, 5000)
 
-// 监听WebSocket接收到服务端返回的消息
+// 4. 监听WebSocket接收到服务端返回的消息
 ws.onmessage = function (event) {
   // 判断是否是服务端返回的回执信息
   if (event.data === 'pong') {
@@ -481,7 +482,7 @@ const WebSocket = require('ws')
 const wss = new WebSocket.Server({ port: 8080 })
 
 wss.on('connection', function connection(ws) {
-  // 监听WebSocket接收到客户端发送的消息
+  // 3. 监听WebSocket接收到客户端发送的消息
   ws.on('message', function incoming(message) {
     // 判断是否是客户端发送的心跳包
     if (message === 'ping') {
@@ -492,3 +493,5 @@ wss.on('connection', function connection(ws) {
   })
 })
 ```
+
+通过这样的方式，就可以实现 WebSocket 的心跳机制，保证客户端和服务端之间的长连接正常运行。
