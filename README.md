@@ -495,3 +495,13 @@ wss.on('connection', function connection(ws) {
 ```
 
 通过这样的方式，就可以实现 WebSocket 的心跳机制，保证客户端和服务端之间的长连接正常运行。
+
+### 手写一个 new 操作符
+
+```js
+function myNew(constructor, ...args) {
+  const obj = Object.create(constructor.prototype)
+  const result = constructor.apply(obj, args)
+  return typeof result === 'object' ? result : obj
+}
+```
