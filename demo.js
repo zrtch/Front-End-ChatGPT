@@ -303,3 +303,12 @@ eventCenter.subscribe('someEvent', function (data) {
 eventCenter.publish('someEvent', 'Hello, world!')
 
 eventCenter.unsubscribe('someEvent', callback)
+
+
+//  手写一个 new 操作符
+
+function myNew(constructor, ...args) {
+  const obj = Object.create(constructor.prototype)
+  const result = constructor.apply(obj, args)
+  return typeof result === 'object' ? result : obj
+}
