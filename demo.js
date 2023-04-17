@@ -312,3 +312,63 @@ function myNew(constructor, ...args) {
   const result = constructor.apply(obj, args)
   return typeof result === 'object' ? result : obj
 }
+
+// 继承的几种方式以及实现
+// 1. 原型链继承
+function Parent1() {
+  this.name = 'parent1';
+}
+
+Parent1.prototype.getName = function () {
+  console.log(this.name);
+};
+
+function Child1() { }
+
+Child1.prototype = new Parent1();
+Child1.prototype.constructor = Child1;
+
+// 2. 构造函数继承
+function Parent2() {
+  this.names = ['parent2'];
+}
+
+function Child2() {
+  Parent2.call(this);
+}
+
+// 3. 组合继承
+function Parent3() {
+  this.name = 'parent3';
+  this.colors = ['red', 'blue', 'green'];
+}
+
+Parent3.prototype.getName = function () {
+  console.log(this.name);
+};
+
+function Child3(name) {
+  Parent3.call(this);
+  this.name = name;
+}
+
+Child3.prototype = new Parent3();
+Child3.prototype.constructor = Child3;
+
+// 4. 寄生组合继承
+function Parent4() {
+  this.name = 'parent4';
+  this.colors = ['red', 'blue', 'green'];
+}
+
+Parent4.prototype.getName = function () {
+  console.log(this.name);
+};
+
+function Child4(name) {
+  Parent4.call(this);
+  this.name = name;
+}
+
+Child4.prototype = Object.create(Parent4.prototype);
+Child4.prototype.constructor = Child4;
