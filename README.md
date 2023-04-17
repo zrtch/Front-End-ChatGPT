@@ -505,3 +505,24 @@ function myNew(constructor, ...args) {
   return typeof result === 'object' ? result : obj
 }
 ```
+
+### Trim 方法实现
+
+JavaScript 中的 trim()方法可以去除字符串首尾的空格。下面是一个实现该方法的示例代码：
+
+```js
+function trim(str) {
+  if (str && typeof str === 'string') {
+    // 使用正则表达式匹配空格，并使用空字符串替换
+    return str.replace(/(^\s*)|(\s*$)/g, '')
+  }
+  return str
+}
+
+// 测试trim() 方法
+const s = ' hello world '
+const s_trimmed = trim(s)
+console.log(s_trimmed) // hello world
+```
+
+在这个实现中，我们首先检查输入参数是否为字符串类型。如果是，我们就使用正则表达式匹配开头和结尾的空格，并使用空字符串替换。最后，去除空格后的字符串被返回。
