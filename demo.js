@@ -325,3 +325,46 @@ function trim(str) {
 const s = ' hello world'
 const s_trimmed = trim(s)
 console.log(s_trimmed); // hello world
+
+// 原型链
+// 定义一个 Animal 构造函数
+function Animal(name) {
+  this.name = name;
+}
+
+// 为 Animal 的原型对象添加一个 say 方法
+Animal.prototype.say = function () {
+  console.log(`My name is ${this.name}`);
+};
+
+// 定义一个 Cat 构造函数，并将其原型对象设置为 Animal 的实例
+function Cat(name, color) {
+  this.name = name;
+  this.color = color;
+}
+Cat.prototype = new Animal();
+
+// 为 Cat 的原型对象添加一个 catchMouse 方法
+Cat.prototype.catchMouse = function () {
+  console.log(`${this.name} is catching a mouse!`);
+};
+
+// 创建一个 Cat 实例
+var garfield = new Cat("Garfield", "orange");
+
+// 调用 garfield 的 say 和 catchMouse 方法
+garfield.say(); // My name is Garfield
+garfield.catchMouse(); // Garfield is catching a mouse!
+
+// 柯里化
+function add(x, y) {
+  return x + y
+}
+function curryAdd(x) {
+  return function (y) {
+    return add(x, y)
+  }
+}
+const addOne = curryAdd(1)
+console.log(addOne(3)); // 4
+
