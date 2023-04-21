@@ -368,3 +368,56 @@ function curryAdd(x) {
 const addOne = curryAdd(1)
 console.log(addOne(3)); // 4
 
+// 手写一个方法，取两个数组的交集
+function getIntersection(arr1, arr2) {
+  const result = [] // 保存结果
+  // 创建一个 Set 数据结构来保存第一个数组〝arr1、中的所有元素。
+  const set = new Set(arr1)
+  // 接着我们遍历第二个数组〝arr2、中的所有元素，
+  for (const num of arr2) {
+    // 如果元素在 Set 中存在，则说明这个元素是两个数组的交集元素，将其添加到结果数组中，
+    if (set.has(num)) {
+      result.push(num)
+      set.delete(num)
+    }
+  }
+  return result
+}
+const arr1 = [1, 2, 3, 4, 5]
+const arr2 = [3, 4, 5, 6, 7]
+const intersection = getIntersection(arr1, arr2)
+console.log(intersection); // [ 3, 4, 5 ]
+
+// 请实现一个函数，满足以下功能 
+// // 1
+// add(1)(2) // 3
+// add(1)(2)(3) // 6
+// add(1)(2,3) // 6
+// add(1,2)(3) // 6
+// 可以使用 JavaScript 的闭包和递归实现一个满足以上功能的函数
+function add(...args) {
+  const fn = (...rest) => add(...args, ...rest)
+  fn.valueOf = () => args.reduce((acc, cur) => acc + cur, 0)
+  return fn
+}
+console.log(add(1)); // 1
+
+// 请手动实现数组的flat方法
+// let a = [1,2,[3],[4,5],6]
+// a.fakeFlat(Infinity) // 输出[1,2,3,4,5,6]
+Array.prototype.fakeFlat = function (depth = 1) {
+  let result = []
+  const flatten = function (arr, depth) {
+    arr.forEach(item => {
+      if (Array.isArray(item) && depth > 0) {
+        flatten(item, depth - 1)
+      } else {
+        result.push(item)
+      }
+    })
+  }
+  flatten(this, depth)
+  return result
+}
+let a = [1, 2, [3], [4, 5], 6]
+console.log(a.fakeFlat(Infinity)); // [ 1, 2, 3, 4, 5, 6 ]
