@@ -421,3 +421,5 @@ Array.prototype.fakeFlat = function (depth = 1) {
 }
 let a = [1, 2, [3], [4, 5], 6]
 console.log(a.fakeFlat(Infinity)); // [ 1, 2, 3, 4, 5, 6 ]
+
+// 测试rebase
