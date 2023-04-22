@@ -423,7 +423,7 @@ let a = [1, 2, [3], [4, 5], 6]
 console.log(a.fakeFlat(Infinity)); // [ 1, 2, 3, 4, 5, 6 ]
 
 // JavaScript实现千位分隔符
-// 1. toLocaleString() 方法返回这个数字在特定语言环境下的表示字符串。
+// 1. 使用JS自带的函数 toLocaleString
 let num1 = 1234567875
 let num2 = 673439.4542
 console.log(num1.toLocaleString()); // 1,234,567,875
