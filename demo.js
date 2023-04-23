@@ -453,3 +453,10 @@ var a1 = 1234567894532;
 var b = 673439.4542;
 console.log(numFormat(a1)); // "1,234,567,894,532"
 console.log(numFormat(b)); // "673,439.4542"
+
+
+// 实现一个数组去重函数
+function unique(arr) {
+  return Array.from(new Set(arr))
+}
+console.log(unique([1, 1, 2, 3, 4, 4, 5])); // [ 1, 2, 3, 4, 5 ]
