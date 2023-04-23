@@ -457,6 +457,7 @@ console.log(numFormat(b)); // "673,439.4542"
 
 // 实现一个数组去重函数
 function unique(arr) {
+  // 使用 Set 去重，并将 Set 转为数组返回结果。
   return Array.from(new Set(arr))
 }
 console.log(unique([1, 1, 2, 3, 4, 4, 5])); // [ 1, 2, 3, 4, 5 ]
