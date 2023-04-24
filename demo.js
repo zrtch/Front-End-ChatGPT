@@ -466,4 +466,4 @@ console.log(unique([1, 1, 2, 3, 4, 4, 5])); // [ 1, 2, 3, 4, 5 ]
 function intersection(arr1, arr2) {
   return Array.from(new Set(arr1.filter(item => arr2.includes(item))));
 }
-console.log(intersection([1, 2, 3, 4], [1, 2, 3, 6])); // [1,2,3]
+console.log(intersection([1, 2, 3, 4, 5], [1, 2, 22, 6])); // [1,2]
