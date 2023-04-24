@@ -461,3 +461,9 @@ function unique(arr) {
   return Array.from(new Set(arr))
 }
 console.log(unique([1, 1, 2, 3, 4, 4, 5])); // [ 1, 2, 3, 4, 5 ]
+
+// 实现一个数组交集函数
+function intersection(arr1, arr2) {
+  return Array.from(new Set(arr1.filter(item => arr2.includes(item))));
+}
+console.log(intersection([1, 2, 3, 4], [1, 2, 3, 6])); // [1,2,3]
