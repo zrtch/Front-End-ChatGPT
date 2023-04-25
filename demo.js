@@ -467,3 +467,9 @@ function intersection(arr1, arr2) {
   return Array.from(new Set(arr1.filter(item => arr2.includes(item))));
 }
 console.log(intersection([1, 2, 3, 4, 5], [1, 2, 22, 6])); // [1,2]
+
+// 实现一个数组并集函数
+function union(arr1, arr2) {
+  return Array.from(new Set(arr1.concat(arr2)));
+}
+console.log(union([1, 2, 3, 4, 5], [1, 2, 22, 6])); // [1,2,3,4,5,22,6]
