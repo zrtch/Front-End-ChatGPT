@@ -479,3 +479,8 @@ function difference(arr1, arr2) {
   return Array.from(new Set([...arr1].filter(item => !arr2.includes(item))));
 }
 console.log(difference([1, 2, 3, 4, 5], [1, 2, 22, 6])); // [3,4,5]
+
+// 定一个字符串类型的对象
+const str = { name: 'Tom', age: '20', sex: 'male' }
+const str2 = JSON.stringify(str) // "{"name":"Tom","age":"20","sex":"male"}"
+console.log(JSON.parse(str2)); // { name: 'Tom', age: '20', sex: 'male' }
