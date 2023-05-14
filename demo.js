@@ -484,3 +484,29 @@ console.log(difference([1, 2, 3, 4, 5], [1, 2, 22, 6])); // [3,4,5]
 const str = { name: 'Tom', age: '20', sex: 'male' }
 const str2 = JSON.stringify(str) // "{"name":"Tom","age":"20","sex":"male"}"
 console.log(JSON.parse(str2)); // { name: 'Tom', age: '20', sex: 'male' }
+
+// 检查一个对象是否是某个构造函数创建的实例
+class Person {
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+  }
+}
+const perosn = new Person('tom', 20)
+const noperson = { name: 'tom', age: 11 }
+console.log(perosn instanceof Person); // true
+console.log(noperson instanceof Person); // true
+
+// 手写闭包
+function add(x) {
+  return function (y) {
+    return x + y;
+  };
+}
+
+// 使用闭包创建一个加法函数 add5
+var add5 = add(5);
+
+// 调用 add5 函数
+console.log(add5(2)); // 输出7
+console.log(add5(10)); // 输出15
