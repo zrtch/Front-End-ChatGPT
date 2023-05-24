@@ -568,8 +568,21 @@ function flattenAndSort(arr) {
   return result;
 }
 
-// 示例用法
-const arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-const flattenedAndSorted = flattenAndSort(arr);
+// 请用Promise实现sleep方法，等待n毫秒后返回
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+sleep(1000).then(() => {
+  console.log('1秒后执行')
+})
 
-console.log(flattenedAndSorted); // 输出：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+// 使用async/await 改写printSomeThing方法
+async function printSomeThing() {
+  try {
+    await sleep(2000)
+    console.log('两秒后执行');
+  } catch (err) {
+    console.log('oops! error!', err);
+  }
+}
+printSomeThing()
