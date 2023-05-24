@@ -510,3 +510,66 @@ var add5 = add(5);
 // 调用 add5 函数
 console.log(add5(2)); // 输出7
 console.log(add5(10)); // 输出15
+
+// 将数组换成成树结构
+function buildTree(arr, parentId = null) {
+  let tree = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].parentId === parentId) {
+      let node = {
+        id: arr[i].id,
+        name: arr[i].name,
+        child: buildTree(arr, arr[i].id)
+      }
+      tree.push(node)
+    }
+  }
+  return tree
+}
+
+let arr = [
+  { id: 1, name: 'Node 1', parentId: null },
+  { id: 2, name: 'Node 2', parentId: 1 },
+  { id: 3, name: 'Node 3', parentId: 1 },
+  { id: 4, name: 'Node 4', parentId: 2 },
+  { id: 5, name: 'Node 5', parentId: 2 },
+  { id: 6, name: 'Node 6', parentId: 3 },
+  { id: 7, name: 'Node 7', parentId: 3 },
+  { id: 8, name: 'Node 8', parentId: null }
+]
+
+let tree = buildTree(arr, null)
+console.log(JSON.stringify(tree));
+
+// 编写一个程序将数组扁平化并去除其中重复部分数据，最终得到一个升序且不重复的数组。（扁平化、去重、排序）
+function flattenAndSort(arr) {
+  // 使用 Set 数据结构存储去重后的元素
+  const uniqueSet = new Set();
+
+  // 递归遍历数组元素
+  function flatten(arr) {
+    arr.forEach(item => {
+      if (Array.isArray(item)) {
+        // 如果当前元素是数组，递归调用 flatten 函数
+        flatten(item);
+      } else {
+        // 将非数组元素添加到 Set 中
+        uniqueSet.add(item);
+      }
+    });
+  }
+
+  // 调用扁平化函数
+  flatten(arr);
+
+  // 将 Set 转换为数组，并进行升序排序
+  const result = Array.from(uniqueSet).sort((a, b) => a - b);
+
+  return result;
+}
+
+// 示例用法
+const arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+const flattenedAndSorted = flattenAndSort(arr);
+
+console.log(flattenedAndSorted); // 输出：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
