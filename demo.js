@@ -586,3 +586,9 @@ async function printSomeThing() {
   }
 }
 printSomeThing()
+
+
+// 排序
+const array = [2, 5, 3]
+const sortarr = array.sort((a, b) => a - b)
+console.log(sortarr); // [ 2, 3, 5 ]
