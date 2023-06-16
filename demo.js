@@ -568,7 +568,45 @@ function flattenAndSort(arr) {
   return result;
 }
 
-// 请用Promise实现sleep方法，等待n毫秒后返回
+
+// 排序
+const array = [2, 5, 3]
+const sortarr = array.sort((a, b) => a - b)
+console.log(sortarr); // [ 2, 3, 5 ]
+
+// 打印顺序
+async function async1() {
+  console.log(1);
+  await async2()
+  console.log(2);
+}
+async function async2() {
+  console.log(3);
+}
+console.log(4);
+setTimeout(() => {
+  console.log(5);
+}, 0);
+async1()
+console.log(8);
+
+// 4 1 3 8 2 5
+
+// 代码输出值
+var a = 10;
+(function () {
+  console.log(a); // undefined
+  a = 5;
+  console.log(b); // reference
+  let b = 15
+  console.log(window.a); // 10
+  var a = 20;
+  console.log(a); // 20
+})()
+
+// undefined, ReferenceError: Cannot access 'b' before initialization, 10, 20
+
+// 1.1请用Promise实现sleep方法，等待n毫秒后返回
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -576,7 +614,7 @@ sleep(1000).then(() => {
   console.log('1秒后执行')
 })
 
-// 使用async/await 改写printSomeThing方法
+// 1.2使用async/await 改写printSomeThing方法
 async function printSomeThing() {
   try {
     await sleep(2000)
@@ -586,9 +624,3 @@ async function printSomeThing() {
   }
 }
 printSomeThing()
-
-
-// 排序
-const array = [2, 5, 3]
-const sortarr = array.sort((a, b) => a - b)
-console.log(sortarr); // [ 2, 3, 5 ]
